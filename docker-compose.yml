@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  leave_a_message:
+    build: .
+    image: leave-a-message_leave_a_message
+    restart: unless-stopped
+    networks:
+      - nginx_net
+    environment:
+      LAM_CONFIG: /run/secrets/lam_config
+    ports:
+      - 8000:8080
+    secrets:
+      - lam_config
+
+networks:
+  nginx_net:
+    name: nginx_net
+
+secrets:
+  lam_config:
+    file: test.json
